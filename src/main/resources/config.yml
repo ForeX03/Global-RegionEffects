@@ -1,0 +1,29 @@
+# Plugin napisany przez ForeX03 z GlobalCode
+#
+# Upranienia:
+#  - efekty.wand - komenda do nadania różdżki
+#  - efekty.effect - komenda /effectregion
+#  - efekty.region - zaznaczenie regionu
+
+wand:
+  item: WOOD_HOE
+
+messages:
+  wand-given: "&aDostałeś różdżkę do stworzenia regionu!"
+  region-created: "&aPomyślnie stworzono region [name]"
+  region-deleted: "&aPomyślnie usunięto region [name]"
+  no-region: "&cNie znaleziono regionu [name]"
+  region-exists: "&cRegion o tej nazwie już istenieje"
+  command-usage-create: "&7Poprawne użycie komendy: &6/effectregion create [name] [efekty po spacji (przykład: absorption:4 instant_damage:2]"
+  command-usage-delete: "&7Poprawne użycie komendy: &6/effectregion delete [name]"
+  integer-error: "&cSiła efektu musi być liczbą!"
+  effect-list: "&7Lista dostępnych efektów: [list]"
+  nopermission: "&cNie masz uprawnień do tego!"
+  pos1-selected: "&8>> &aZaznaczono 1. pozycje."
+  pos2-selected: "&8>> &aZaznaczono 2. pozycje."
+  pos1-needed: "&8>> &cMusisz zaznaczyć 1. pozycje."
+  pos2-needed: "&8>> &cMusisz zaznaczyć 2. pozycje."
+  no-region-selected: "&8>> &cNie zaznaczyłeś regionu!"
+  config-reloaded: "&8>> &aPrzeładowano konfiguracje"
+
+regions:
