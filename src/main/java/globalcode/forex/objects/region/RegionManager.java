@@ -1,9 +1,12 @@
 package globalcode.forex.objects.region;
 
 import globalcode.forex.Main;
+import globalcode.forex.utils.Config;
+import globalcode.forex.utils.Parser;
 import globalcode.forex.utils.PotionEffectTranslator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffectType;
 
@@ -48,24 +51,23 @@ public class RegionManager {
         }
     }
     public static void loadRegions(){
-        int i = 0;
-        if(Main.getPlugin().getConfig().getConfigurationSection("regions")==null) return;
-        for(String s : Main.getPlugin().getConfig().getConfigurationSection("regions").getKeys(false)){
+        if(Config.getSection("regions")==null) return;
+        for(String s : Config.getSection("regions")){
             Main.getPlugin().getLogger().log(Level.INFO, "Ładowanie regionu "+s+"...");
-            String world = Main.getPlugin().getConfig().getString("regions."+s+".world");
-            String[] sloc1 = Main.getPlugin().getConfig().getString("regions."+s+".pos1").split(":");
-            String[] sloc2 = Main.getPlugin().getConfig().getString("regions."+s+".pos2").split(":");
-            Location loc1 = new Location(Bukkit.getWorld(world), Integer.parseInt(sloc1[0]), Integer.parseInt(sloc1[1]), Integer.parseInt(sloc1[2]));
-            Location loc2 = new Location(Bukkit.getWorld(world), Integer.parseInt(sloc2[0]), Integer.parseInt(sloc2[1]), Integer.parseInt(sloc2[2]));
+            HashMap<String, Object> regionData = Config.getRegionData(s);
+            World world = Bukkit.getWorld(regionData.get("world").toString());
+            int[] sloc1 = Parser.toInteger(regionData.get("pos1").toString().split(":"));
+            int[] sloc2 = Parser.toInteger(regionData.get("pos2").toString().split(":"));
+            Location loc1 = new Location(world, sloc1[0], sloc1[1], sloc1[2]);
+            Location loc2 = new Location(world, sloc2[0], sloc2[1], sloc2[2]);
             HashMap<PotionEffectType, Integer> effects = new HashMap<>();
-            for(String effectlist : Main.getPlugin().getConfig().getStringList("regions."+s+".effects")){
+            for(String effectlist : (List<String>) regionData.get("effects")){
                 String[] spliter = effectlist.split(" ");
                 effects.put(PotionEffectTranslator.translateToPotion(spliter[0]), Integer.parseInt(spliter[1])-1);
             }
-            createRegion(s, world, loc1, loc2, effects);
+            createRegion(s, world.getName(), loc1, loc2, effects);
             Main.getPlugin().getLogger().log(Level.INFO, "Region "+s+" załadowany pomyślnie!");
-            i++;
         }
-        Main.getPlugin().getLogger().log(Level.INFO, "Załadowano "+i+" regionów");
+        Main.getPlugin().getLogger().log(Level.INFO, "Załadowano "+Config.getSection("regions").size()+" regionów");
     }
 }

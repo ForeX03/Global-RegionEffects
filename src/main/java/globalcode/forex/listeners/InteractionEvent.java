@@ -26,9 +26,7 @@ public class InteractionEvent implements Listener {
                     sel = new Selection();
                 }
                 sel.setWorld(e.getPlayer().getWorld());
-                sel.setX1(e.getClickedBlock().getX());
-                sel.setY1(e.getClickedBlock().getY());
-                sel.setZ1(e.getClickedBlock().getZ());
+                sel.setLoc1(e.getClickedBlock().getLocation());
                 sel.setCompleted(false);
                 u.setSelection(sel);
                 e.getPlayer().sendMessage(TextUtil.fixColor(Main.getPlugin().getConfig().getString("messages.pos1-selected")));
@@ -38,9 +36,7 @@ public class InteractionEvent implements Listener {
                     e.getPlayer().sendMessage(TextUtil.fixColor(Main.getPlugin().getConfig().getString("messages.pos1-needed")));
                     return;
                 }
-                sel.setX2(e.getClickedBlock().getX());
-                sel.setY2(e.getClickedBlock().getY());
-                sel.setZ2(e.getClickedBlock().getZ());
+                sel.setLoc2(e.getClickedBlock().getLocation());
                 sel.setCompleted(true);
                 u.setSelection(sel);
                 e.getPlayer().sendMessage(TextUtil.fixColor(Main.getPlugin().getConfig().getString("messages.pos2-selected")));
